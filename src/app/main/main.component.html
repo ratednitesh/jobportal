@@ -1,0 +1,54 @@
+<div class="container my-5 py-5">
+  <div class="m-2 card bg-white">
+    <form>
+      <div class="p-3 form-group">
+        <div class="row">
+          <div class="col">
+            <label for="skills">Filter Jobs by Skills:</label>
+            <input type="text" class="form-control" id="skills" name="skills" [(ngModel)]="skills"
+              placeholder="Enter Skills">
+          </div>
+          <div class="col">
+            <label for="location">Filter Jobs by Location:</label>
+            <input type="text" class="form-control" id="location" name="location" [(ngModel)]="location"
+              placeholder="Enter Location">
+          </div>
+          <div class="col">
+            <label for="companyname">Filter Jobs by Company Name:</label>
+            <input type="text" class="form-control" id="companyname" name="companyname" [(ngModel)]="companyname"
+              placeholder="Enter Company Name">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="m-2 pt-3 card text-center bg-white">
+    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+  </div>
+  <div>
+    <div class="m-2 card"
+      *ngFor="let item of items | filter:skills:location:companyname|paginate:{itemsPerPage: 15, currentPage:p} ; let i = index">
+      <div *ngIf="i==0" class="row m-3">
+        <div class="col text-left">
+          <h4>Total Jobs: {{totalJobs}}</h4>
+        </div>
+        <div class="col text-right">
+          <h4>Filtered Jobs: {{item.filteredLength}}</h4>
+        </div>
+      </div>
+      <div class="card-header text-uppercase font-weight-bold ">
+        {{ item.filteredItem.companyname }}
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-5">
+          <strong>Title :</strong> {{ item.filteredItem.title }} <br />
+          <strong>Experience :</strong> {{ item.filteredItem.experience }} <br />
+          <strong>Skills :</strong> {{ item.filteredItem.skills }} <br />
+          <strong>Apply Link : </strong>
+          <a href="{{ item.filteredItem.applylink }}" target="_blank">{{ item.filteredItem.applylink }}</a> <br />
+          <strong>Location :</strong> {{ item.filteredItem.location }}
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>

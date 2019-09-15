@@ -1,0 +1,10 @@
+{
+  "/posts": {
+    "target": "https://nut-case.s3.amazonaws.com/jobs.json",
+    "secure": true,
+    "pathRewrite": {
+      "^/posts": ""
+    },
+    "changeOrigin": true
+  }
+}
